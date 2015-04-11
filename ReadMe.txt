@@ -1,0 +1,9 @@
+这是一个基于Analog Discovery的项目。
+Analog Discovery是ADI公司和Digilent公司联合研发的一个电子信息学习工具。
+Analog Discovery配合WaveForms应用程序可以将计算机变成示波器，任意波形发生器。
+通过Analog Discovery，你还可以获得5V的供电电源。
+
+本项目旨在通过WaveForms SDK对Analog Discovery进行二次开发，让Analog Discovery变成
+一个高速的信号采集模块，通过计算机数字信号处理，快速实现探测电路的方案验证。
+
+感谢ADI公司的支持！
