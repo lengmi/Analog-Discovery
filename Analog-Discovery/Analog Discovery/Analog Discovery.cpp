@@ -4,14 +4,17 @@
 #include "stdafx.h"
 #include "dwf.h"
 #include <iostream>
+using namespace std;
 
 BOOL discoverAndConnect(HDWF* hdwf);
+void showAnalogInDetails(HDWF hdwf);
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	HDWF hdwf = 0;
 	discoverAndConnect(&hdwf);
-
+	showAnalogInDetails(hdwf);
+	getchar();
 	FDwfDeviceClose(hdwf);
 	getchar();
 	return 0;
@@ -67,4 +70,29 @@ BOOL discoverAndConnect(HDWF* phdwf)
 		}
 	}
 	return ifConnect;
+}
+
+void showAnalogInDetails(HDWF hdwf)
+{
+	int nChannel = 0;
+	double hzMin, hzMax;
+	double voltRangeMin, voltRangeMax, voltRangeSteps;
+	double offsetVoltMin, offsetVoltMax, offsetVoltSteps;
+	int dacBits = 0;
+	int sizeMin, sizeMax;
+	FDwfAnalogInFrequencyInfo(hdwf, &hzMin, &hzMax);
+	FDwfAnalogInBitsInfo(hdwf, &dacBits);
+	FDwfAnalogInBufferSizeInfo(hdwf, &sizeMin, &sizeMax);
+	FDwfAnalogInChannelCount(hdwf, &nChannel);
+	FDwfAnalogInChannelRangeInfo(hdwf, &voltRangeMin, &voltRangeMax, &voltRangeSteps);
+	FDwfAnalogInChannelOffsetInfo(hdwf, &offsetVoltMin, &offsetVoltMax, &offsetVoltSteps);
+	cout << "\nAnalogIn details:" << endl;
+	cout << "Sample Frequency,min: " << hzMin << "; max: " << hzMax << ";" << endl;
+	cout << "DAC bits: " << dacBits << ";" << endl;
+	cout << "Buffer size, Min: " << sizeMin << "; Max: " << sizeMax << ";" << endl;
+	cout << "Analog In Channel number: " << nChannel << ";" << endl;
+	cout << "Volt range, Min: " << voltRangeMin << "; Max: " << voltRangeMax << ";" << endl;
+	cout << "Volt range steps: " << voltRangeSteps << ";" << endl;
+	cout << "Offset volt range, Min: " << offsetVoltMin << "; Max: " << offsetVoltMax << ";" << endl;
+	cout << "Offset Volt steps: " << offsetVoltSteps << ";\n" << endl;
 }
